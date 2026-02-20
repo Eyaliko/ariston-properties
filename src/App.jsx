@@ -8,6 +8,7 @@ import ProjectsGallery from "./components/ProjectsGallery";
 import Testimonials from "./components/Testimonials";
 import LeadGenForm from "./components/LeadGenForm";
 import Footer from "./components/Footer";
+import StickyCtaButton from "./components/StickyCtaButton";
 
 export default function App() {
   return (
@@ -24,6 +25,7 @@ export default function App() {
         <LeadGenForm />
       </main>
       <Footer />
+      <StickyCtaButton />
     </>
   );
 }
