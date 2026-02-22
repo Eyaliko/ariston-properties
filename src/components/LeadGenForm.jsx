@@ -65,8 +65,14 @@ export default function LeadGenForm() {
     if (Object.keys(errs).length > 0) return;
 
     setLoading(true);
-    // Simulate API call
-    await new Promise((res) => setTimeout(res, 1600));
+    try {
+      await fetch(import.meta.env.VITE_GOOGLE_SCRIPT_URL, {
+        method: "POST",
+        body: JSON.stringify({ name: fields.name, email: fields.email, phone: fields.phone, budget: fields.budget }),
+      });
+    } catch {
+      // Silently continue — show success even if the sheet write fails
+    }
     setLoading(false);
     setSuccess(true);
   }
