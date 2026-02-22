@@ -90,7 +90,6 @@ export default function StickyCtaButton() {
     try {
       await fetch(import.meta.env.VITE_GOOGLE_SCRIPT_URL, {
         method: "POST",
-        mode: "no-cors",
         body: JSON.stringify({ name: fields.name, email: fields.email, phone: fields.phone }),
       });
     } catch {
