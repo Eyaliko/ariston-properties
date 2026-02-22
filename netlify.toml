@@ -1,0 +1,2 @@
+[build.environment]
+  VITE_GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxbb_I7SEpERHH13-kMaZEss-q8rJ2vZexn1WQwsjXqu8Qv210o006mTrBAYlFeVfDw_w/exec"
