@@ -3,7 +3,7 @@ import { useScrollRevealGroup } from "../hooks/useScrollReveal";
 const testimonials = [
   {
     quote:
-      "I spent two years looking at Manchester buy-to-lets — the yields had collapsed. Athens offered everything I wanted: proper leverage, hands-off management, and a yield above 7%. Ariston made the process straightforward.",
+      "I spent two years looking at Manchester buy-to-lets — the yields had collapsed. Athens offered everything I wanted: proper leverage, hands-off management, and a yield above 7%. Excellent Group made the process straightforward.",
     name: "James H.",
     location: "Manchester",
     flag: "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
@@ -19,7 +19,7 @@ const testimonials = [
   },
   {
     quote:
-      "The 12-month delivery guarantee was what convinced me. Every UK developer I'd worked with ran late. Ariston hit the date contractually — and the flat looked better than the renders.",
+      "The 12-month delivery guarantee was what convinced me. Every UK developer I'd worked with ran late. Excellent Group hit the date contractually — and the flat looked better than the renders.",
     name: "David M.",
     location: "London",
     flag: "🇬🇧",
@@ -36,7 +36,7 @@ export default function Testimonials() {
         {/* Header */}
         <div className="text-center mb-14">
           <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl text-white leading-tight mb-4">
-            What UK Investors Say.
+            What Our Buyers Say.
           </h2>
           <div className="w-12 h-0.5 bg-gold mx-auto" />
         </div>

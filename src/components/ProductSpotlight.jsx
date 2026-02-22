@@ -42,7 +42,7 @@ export default function ProductSpotlight() {
           <div className="reveal reveal-left relative order-1 lg:order-1">
             <img
               src={INTERIOR_IMAGE}
-              alt="Fully furnished Ariston Properties interior, Athens"
+              alt="Fully furnished Excellent Group Properties interior, Athens"
               className="w-full h-80 lg:h-[460px] object-cover rounded-lg shadow-xl"
               loading="lazy"
             />
@@ -109,7 +109,7 @@ export default function ProductSpotlight() {
           <div className="reveal reveal-right order-1 lg:order-2">
             <img
               src={EXTERIOR_IMAGE}
-              alt="Neoclassical Athens apartment building, Ariston Properties"
+              alt="Neoclassical Athens apartment building, Excellent Group Properties"
               className="w-full h-80 lg:h-[440px] object-cover rounded-lg shadow-xl"
               loading="lazy"
             />

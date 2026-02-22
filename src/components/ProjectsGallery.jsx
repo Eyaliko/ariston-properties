@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useScrollReveal, useScrollRevealGroup } from "../hooks/useScrollReveal";
 
 const projects = [
@@ -105,55 +105,59 @@ function StatusPill({ status }) {
   );
 }
 
-function ProjectCard({ project }) {
-  const [isAfter, setIsAfter] = useState(true);
-  const [opacity, setOpacity] = useState(1);
-  const [currentSrc, setCurrentSrc] = useState(project.afterImg);
+function BeforeAfterSlider({ beforeImg, afterImg, name }) {
+  const [pos, setPos] = useState(50);
+  const containerRef = useRef(null);
 
-  function handleToggle(showAfter) {
-    if (showAfter === isAfter) return;
-    setOpacity(0);
-    setTimeout(() => {
-      setIsAfter(showAfter);
-      setCurrentSrc(showAfter ? project.afterImg : project.beforeImg);
-      setOpacity(1);
-    }, 150);
+  function getPercent(clientX) {
+    const rect = containerRef.current.getBoundingClientRect();
+    return Math.min(100, Math.max(0, ((clientX - rect.left) / rect.width) * 100));
   }
 
+  return (
+    <div
+      ref={containerRef}
+      className="relative w-full h-full overflow-hidden cursor-col-resize select-none"
+      onMouseMove={(e) => setPos(getPercent(e.clientX))}
+      onMouseLeave={() => setPos(50)}
+      onTouchMove={(e) => { e.preventDefault(); setPos(getPercent(e.touches[0].clientX)); }}
+    >
+      {/* After image — full base layer */}
+      <img src={afterImg} alt={`${name} after`} className="absolute inset-0 w-full h-full object-cover" loading="lazy" />
+
+      {/* Before image — clipped to left of divider */}
+      <img
+        src={beforeImg}
+        alt={`${name} before`}
+        className="absolute inset-0 w-full h-full object-cover"
+        style={{ clipPath: `inset(0 ${100 - pos}% 0 0)` }}
+        loading="lazy"
+      />
+
+      {/* Divider line + handle */}
+      <div className="absolute top-0 bottom-0 w-0.5 bg-white/90 shadow-md pointer-events-none" style={{ left: `${pos}%` }}>
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white shadow-lg flex items-center justify-center text-gray-500 text-sm font-bold">
+          ⇔
+        </div>
+      </div>
+
+      {/* Labels */}
+      <span className="absolute top-3 left-3 px-2 py-0.5 rounded-full bg-black/40 text-white text-xs font-semibold">Before</span>
+      <span className="absolute top-3 right-3 px-2 py-0.5 rounded-full bg-[#C9A96E]/90 text-white text-xs font-semibold">After</span>
+    </div>
+  );
+}
+
+function ProjectCard({ project }) {
   return (
     <article className="reveal bg-white rounded-xl overflow-hidden shadow-md border border-gray-100 flex flex-col">
       {/* Image area */}
       <div className="relative aspect-[4/3] bg-gray-100 overflow-hidden">
-        <img
-          src={currentSrc}
-          alt={`${project.name} — ${isAfter ? "after" : "before"} construction`}
-          className="w-full h-full object-cover"
-          style={{ opacity, transition: "opacity 0.3s ease" }}
-          loading="lazy"
+        <BeforeAfterSlider
+          beforeImg={project.beforeImg}
+          afterImg={project.afterImg}
+          name={project.name}
         />
-        {/* Before / After toggle overlay */}
-        <div className="absolute bottom-3 left-3 flex gap-1.5">
-          <button
-            onClick={() => handleToggle(false)}
-            className={`px-3 py-1 rounded-full text-xs font-semibold transition-all ${
-              !isAfter
-                ? "bg-[#C9A96E] text-white shadow-md"
-                : "bg-white/80 text-gray-700 hover:bg-white"
-            }`}
-          >
-            Before
-          </button>
-          <button
-            onClick={() => handleToggle(true)}
-            className={`px-3 py-1 rounded-full text-xs font-semibold transition-all ${
-              isAfter
-                ? "bg-[#C9A96E] text-white shadow-md"
-                : "bg-white/80 text-gray-700 hover:bg-white"
-            }`}
-          >
-            After
-          </button>
-        </div>
       </div>
 
       {/* Card body */}
